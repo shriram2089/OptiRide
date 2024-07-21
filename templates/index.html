@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ride Sharing System</title>
+    <script>
+        async function registerDriver() {
+            const driver_id = document.getElementById('driver_id').value;
+            const location = document.getElementById('driver_location').value.split(',').map(Number);
+
+            const response = await fetch('/register_driver', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ driver_id, location })
+            });
+
+            const data = await response.json();
+            alert(data.status);
+        }
+
+        async function requestRide() {
+            const rider_id = document.getElementById('rider_id').value;
+            const location = document.getElementById('rider_location').value.split(',').map(Number);
+            const destination = document.getElementById('destination').value.split(',').map(Number);
+
+            const response = await fetch('/request_ride', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ rider_id, location, destination })
+            });
+
+            const data = await response.json();
+            alert(data.status);
+        }
+
+        async function completeRide() {
+            const driver_id = document.getElementById('complete_driver_id').value;
+
+            const response = await fetch('/complete_ride', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ driver_id })
+            });
+
+            const data = await response.json();
+            alert(data.status);
+        }
+    </script>
+</head>
+<body>
+    <h1>Ride Sharing System</h1>
+    
+    <h2>Register Driver</h2>
+    <input type="text" id="driver_id" placeholder="Driver ID">
+    <input type="text" id="driver_location" placeholder="Location (lat,lon)">
+    <button onclick="registerDriver()">Register</button>
+    
+    <h2>Request Ride</h2>
+    <input type="text" id="rider_id" placeholder="Rider ID">
+    <input type="text" id="rider_location" placeholder="Location (lat,lon)">
+    <input type="text" id="destination" placeholder="Destination (lat,lon)">
+    <button onclick="requestRide()">Request</button>
+
+    <h2>Complete Ride</h2>
+    <input type="text" id="complete_driver_id" placeholder="Driver ID">
+    <button onclick="completeRide()">Complete Ride</button>
+</body>
+</html>
