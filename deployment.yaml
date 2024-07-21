@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ride-sharing-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ride-sharing
+  template:
+    metadata:
+      labels:
+        app: ride-sharing
+    spec:
+      containers:
+      - name: ride-sharing
+        image: your-docker-image
+        ports:
+        - containerPort: 5000

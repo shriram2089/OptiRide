@@ -1,0 +1,4 @@
+Flask
+geopy
+networkx
+psycopg2-binary
